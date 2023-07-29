@@ -1,5 +1,10 @@
 #!/bin/bash
-  
+
+. /etc/transmission/default
+
+docker stop transmission || true
+docker rm transmission || true
+
 docker run -d \
   --name=transmission \
   -e USER=user \
@@ -9,8 +14,9 @@ docker run -d \
   -p 9091:9091 \
   -p 13777:13777 \
   -p 13777:13777/udp \
-  -v /transmission_config/config:/config \
+  -v /var/lib/transmission/config:/config \
   -v /storage/tmp/torrent/complete:/downloads \
   --restart unless-stopped \
-  lscr.io/linuxserver/transmission:latest
+  custom_linuxserver_transmission:latest
+#  lscr.io/linuxserver/transmission:latest
 
