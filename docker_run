@@ -1,0 +1,16 @@
+#!/bin/bash
+  
+docker run -d \
+  --name=transmission \
+  -e USER=user \
+  -e PASS=dummy \
+  -e PUID=109 \
+  -e PGID=116 \
+  -p 9091:9091 \
+  -p 13777:13777 \
+  -p 13777:13777/udp \
+  -v /transmission_config/config:/config \
+  -v /storage/tmp/torrent/complete:/downloads \
+  --restart unless-stopped \
+  lscr.io/linuxserver/transmission:latest
+
